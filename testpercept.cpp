@@ -1,10 +1,11 @@
-// **********************************************************************
-// *																	*
-// *			TEST PROGRAM: PERCEPTRON NETWORK classes				*
-// *					Version: 24 January 2002						*
-// *						by Milan Prucha								*
-// *																	*
-// **********************************************************************
+/*
+ * NEURAL NETWORK Class Library 
+ * ----------------------------
+ * by Milan Prucha
+ * 
+ * Website: www.milanprucha.com
+ * GitHub:  github.com/prucha
+ */
 
 
 #include "perceptron.h"
@@ -19,7 +20,7 @@ bool test =0;
 	srand( (unsigned)time(NULL) );
 
 //TEST NEURON OBJECT
-//Cneuron myNeuron(3);
+//Neuron myNeuron(3);
 
 //myNeuron.SetDendrite_x(0, 0.56);
 //myNeuron.SetDendrite_x(1, 0.7);
@@ -57,7 +58,7 @@ bool test =0;
 //TEST NETWORK OBJECT 
 //====================================================
 
-//Cnetwork myNetwork(3);	//network has 3 layers
+//MLPNetwork myNetwork(3);	//network has 3 layers
 
 //myNetwork.defineLayer(0,3); //input layer - has 3 neurons
 //myNetwork.defineLayer(1,2); //hidden layer - has 2 neurons
@@ -116,7 +117,7 @@ bool test =0;
 
 //=======================================================
 
-Cnetwork myNetwork(3);
+MLPNetwork myNetwork(3);
 
 myNetwork.defineLayer(0,2); //input layer - has 2 neurons
 myNetwork.defineLayer(1,2); //hidden layer - has 2 neurons

@@ -1,11 +1,11 @@
-// **********************************************************************
-// *																	*
-// *			CLASS DEFINITION: PERCEPTRON NETWORK classes			*
-// *					Version: 24 January 2002						*
-// *						by Milan Prucha								*
-// *																	*
-// **********************************************************************
-
+/*
+ * NEURAL NETWORK Class Library 
+ * ----------------------------
+ * by Milan Prucha
+ * 
+ * Website: www.milanprucha.com
+ * GitHub:  github.com/prucha
+ */
 
 
 #include "perceptron.h"
@@ -15,7 +15,7 @@
 //============================================================================
 
 //default constructor - no parameters supplied
-Cneuron::Cneuron() : dendriteTotal(2), activation(0), y(0), d(0), dy(0)
+Neuron::Neuron() : dendriteTotal(2), activation(0), y(0), d(0), dy(0)
 {
 	//'CreateDendrites' needs to be called before this is used
 	dendrites = NULL;
@@ -25,7 +25,7 @@ Cneuron::Cneuron() : dendriteTotal(2), activation(0), y(0), d(0), dy(0)
 // ALTERNATIVE CONSTRUCTOR
 //=============================================================================
 
-Cneuron::Cneuron(unsigned int newDendriteTotal) : dendriteTotal(newDendriteTotal),
+Neuron::Neuron(unsigned int newDendriteTotal) : dendriteTotal(newDendriteTotal),
 activation(0), y(0), d(0), dy(0)
 {
 	//the minimum number of dendrites (including the bias) to make the adaline viable
@@ -63,7 +63,7 @@ activation(0), y(0), d(0), dy(0)
 //  DESTRUCTOR
 //==============================================================================
 
-Cneuron::~Cneuron()
+Neuron::~Neuron()
 {
 	if(dendrites!=NULL)
 	{
@@ -76,7 +76,7 @@ Cneuron::~Cneuron()
 //  MEMBER FUNCTIONS
 //===============================================================================
 
-void Cneuron::CreateDendrites(unsigned int newDendriteTotal)
+void Neuron::CreateDendrites(unsigned int newDendriteTotal)
 {
 	dendriteTotal = newDendriteTotal;
 
@@ -109,7 +109,7 @@ void Cneuron::CreateDendrites(unsigned int newDendriteTotal)
 //Set the input of a dendrite
 //Any attempt to set the bias input(x) will be rejected (dendrites[0])
 //as this is ALWAYS +1
-bool Cneuron::SetDendrite_x(unsigned int dendriteElem, double new_x)
+bool Neuron::SetDendrite_x(unsigned int dendriteElem, double new_x)
 {
 	if(dendrites==NULL)
 	{
@@ -129,7 +129,7 @@ bool Cneuron::SetDendrite_x(unsigned int dendriteElem, double new_x)
 //==================================================================================
 
 //Set the weight value applied to a dendrite
-bool Cneuron::SetDendrite_w(unsigned int dendriteElem, double new_w)
+bool Neuron::SetDendrite_w(unsigned int dendriteElem, double new_w)
 {
 	if(dendrites==NULL)
 	{
@@ -149,7 +149,7 @@ bool Cneuron::SetDendrite_w(unsigned int dendriteElem, double new_w)
 //===================================================================================
 
 //returns the input currently applied to the dendrite
-double Cneuron::GetDendrite_x(unsigned int dendriteElem)
+double Neuron::GetDendrite_x(unsigned int dendriteElem)
 {
 	if(dendrites==NULL)
 	{
@@ -171,7 +171,7 @@ double Cneuron::GetDendrite_x(unsigned int dendriteElem)
 //====================================================================================
 
 //returns the current weight applied to the dendrite
-double Cneuron::GetDendrite_w(unsigned int dendriteElem)
+double Neuron::GetDendrite_w(unsigned int dendriteElem)
 {
 	if(dendrites==NULL)
 	{
@@ -196,7 +196,7 @@ double Cneuron::GetDendrite_w(unsigned int dendriteElem)
 //then passes this through a 'Sigmoid Function'
 // to get a non-linear output
 
-void Cneuron::CalcOutput()
+void Neuron::CalcOutput()
 {
 	if(dendrites==NULL)
 	{
@@ -222,28 +222,28 @@ void Cneuron::CalcOutput()
 
 //====================================================================================
 
-double Cneuron::GetActivation()
+double Neuron::GetActivation()
 {
 	return activation;
 }
 
 //=====================================================================================
 
-double Cneuron::GetOutput()
+double Neuron::GetOutput()
 {
 	return y;
 }
 
 //======================================================================================
 
-double Cneuron::GetDesiredOutput()
+double Neuron::GetDesiredOutput()
 {
 	return dy;
 }
 
 //======================================================================================
 
-void Cneuron::SetOutput(double new_y)
+void Neuron::SetOutput(double new_y)
 {
 	if(new_y > 1)
 		new_y = 1;
@@ -254,21 +254,21 @@ void Cneuron::SetOutput(double new_y)
 //======================================================================================
 
 //retrieve the Delta (or Error) in the neuron's output
-double Cneuron::GetDelta()
+double Neuron::GetDelta()
 {
 	return d;
 }
 
 //======================================================================================
 
-void Cneuron::SetDelta(double new_d)
+void Neuron::SetDelta(double new_d)
 {
 	d = new_d;
 }
 
 //======================================================================================
 
-void Cneuron::SetDesiredOutput(double new_dy)
+void Neuron::SetDesiredOutput(double new_dy)
 {
 	if(new_dy > 1)
 		new_dy = 1;
@@ -278,7 +278,7 @@ void Cneuron::SetDesiredOutput(double new_dy)
 
 //======================================================================================
 
-void Cneuron::info()
+void Neuron::info()
 {
 
 	for(unsigned int i=0; i<dendriteTotal; i++)
@@ -300,7 +300,7 @@ void Cneuron::info()
 //=======================================================================================
 
 //DEFAULT CONSTRUCTOR - no parameters supplied
-Clayer::Clayer() : type(1), neuronTotal(0), dendriteTotal(2) 
+Layer::Layer() : type(1), neuronTotal(0), dendriteTotal(2) 
 {
 	// 'CreateNeurons' needs to be called before this is used
 	neurons = NULL;
@@ -309,7 +309,7 @@ Clayer::Clayer() : type(1), neuronTotal(0), dendriteTotal(2)
 //=======================================================================================
 //CUSTOM CONSTRUCTOR
 
-Clayer::Clayer(unsigned int newNeuronTotal, unsigned int newDendriteTotal, unsigned int newType) :
+Layer::Layer(unsigned int newNeuronTotal, unsigned int newDendriteTotal, unsigned int newType) :
 neuronTotal(newNeuronTotal), dendriteTotal(newDendriteTotal), type(newType)
 {
 	
@@ -327,7 +327,7 @@ neuronTotal(newNeuronTotal), dendriteTotal(newDendriteTotal), type(newType)
 			dendriteTotal=2; //includes bias input	
 	}
 
-	neurons = new Cneuron[neuronTotal]; 
+	neurons = new Neuron[neuronTotal]; 
 
 	for(unsigned int i=0; i<neuronTotal; i++)
 	{
@@ -345,7 +345,7 @@ neuronTotal(newNeuronTotal), dendriteTotal(newDendriteTotal), type(newType)
 //=======================================================================================
 //DESTRUCTOR
 
-Clayer::~Clayer()
+Layer::~Layer()
 {
 	if(neurons!=NULL)
 	{
@@ -357,7 +357,7 @@ Clayer::~Clayer()
 //=======================================================================================
 //MEMBER FUNCTIONS
 
-void Clayer::CreateNeurons(unsigned int newNeuronTotal, unsigned int newDendriteTotal,
+void Layer::CreateNeurons(unsigned int newNeuronTotal, unsigned int newDendriteTotal,
 unsigned int newType)
 {
 	neuronTotal = newNeuronTotal;
@@ -380,7 +380,7 @@ unsigned int newType)
 	}
 
 
-	neurons = new Cneuron[neuronTotal]; 
+	neurons = new Neuron[neuronTotal]; 
 
 	for(unsigned int i=0; i<neuronTotal; i++)
 	{
@@ -391,7 +391,7 @@ unsigned int newType)
 
 //=======================================================================================
 
-bool Clayer::SetDendrite_x(unsigned int neuronElem, unsigned int dendriteElem, double new_x)
+bool Layer::SetDendrite_x(unsigned int neuronElem, unsigned int dendriteElem, double new_x)
 {
 	if(neurons==NULL)
 	{
@@ -423,7 +423,7 @@ bool Clayer::SetDendrite_x(unsigned int neuronElem, unsigned int dendriteElem, d
 
 //========================================================================================
 
-bool Clayer::SetDendrite_w(unsigned int neuronElem, unsigned int dendriteElem, double new_w)
+bool Layer::SetDendrite_w(unsigned int neuronElem, unsigned int dendriteElem, double new_w)
 {
 	
 	if(neurons==NULL)
@@ -445,7 +445,7 @@ bool Clayer::SetDendrite_w(unsigned int neuronElem, unsigned int dendriteElem, d
 
 //=========================================================================================
 
-double Clayer::GetDendrite_x(unsigned int neuronElem, unsigned int dendriteElem)
+double Layer::GetDendrite_x(unsigned int neuronElem, unsigned int dendriteElem)
 {
 	if(neurons==NULL)
 	{
@@ -466,7 +466,7 @@ double Clayer::GetDendrite_x(unsigned int neuronElem, unsigned int dendriteElem)
 
 //===========================================================================================
 
-double Clayer::GetDendrite_w(unsigned int neuronElem, unsigned int dendriteElem)
+double Layer::GetDendrite_w(unsigned int neuronElem, unsigned int dendriteElem)
 {
 	if(neurons==NULL)
 	{
@@ -487,7 +487,7 @@ double Clayer::GetDendrite_w(unsigned int neuronElem, unsigned int dendriteElem)
 
 //===========================================================================================
 
-void Clayer::CalcOutput()
+void Layer::CalcOutput()
 {
 
 	if(neurons==NULL)
@@ -511,7 +511,7 @@ void Clayer::CalcOutput()
 //===========================================================================================
 
 //Delta (or Error) in the neuron's output
-bool Clayer::SetDelta(unsigned int neuronElem, double new_d)
+bool Layer::SetDelta(unsigned int neuronElem, double new_d)
 {
 	//check that neurons have been created
 	if(neurons==NULL)
@@ -531,7 +531,7 @@ bool Clayer::SetDelta(unsigned int neuronElem, double new_d)
 //===========================================================================================
 
 //Set the desired output of a neuron in the outputlayer(2) only
-bool Clayer::SetDesiredOutput(unsigned int neuronElem, double new_dy)
+bool Layer::SetDesiredOutput(unsigned int neuronElem, double new_dy)
 {
 	
 	//check that this is the output layer
@@ -552,7 +552,7 @@ bool Clayer::SetDesiredOutput(unsigned int neuronElem, double new_dy)
 
 //===========================================================================================
 
-double Clayer::GetActivation(unsigned int neuronElem)
+double Layer::GetActivation(unsigned int neuronElem)
 {
 	if(neurons==NULL)
 	{
@@ -572,7 +572,7 @@ double Clayer::GetActivation(unsigned int neuronElem)
 
 //===========================================================================================
 
-double Clayer::GetDesiredOutput(unsigned int neuronElem)
+double Layer::GetDesiredOutput(unsigned int neuronElem)
 {
 	if(neurons==NULL)
 	{
@@ -593,7 +593,7 @@ double Clayer::GetDesiredOutput(unsigned int neuronElem)
 //===========================================================================================
 
 //retrieve the Delta (or Error) in the neuron's output
-double Clayer::GetDelta(unsigned int neuronElem)
+double Layer::GetDelta(unsigned int neuronElem)
 {
 	if(neurons==NULL)
 	{
@@ -612,7 +612,7 @@ double Clayer::GetDelta(unsigned int neuronElem)
 }
 
 //===========================================================================================
-double Clayer::GetOutput(unsigned int neuronElem)
+double Layer::GetOutput(unsigned int neuronElem)
 {
 	if(neurons==NULL)
 	{
@@ -629,14 +629,14 @@ double Clayer::GetOutput(unsigned int neuronElem)
 
 //===========================================================================================
 
-unsigned int Clayer::GetNeuronTotal()
+unsigned int Layer::GetNeuronTotal()
 {
 	return neuronTotal;
 }
 
 //===========================================================================================
 
-void Clayer::info()
+void Layer::info()
 {	
 	switch(type)
 	{
@@ -662,7 +662,7 @@ void Clayer::info()
 
 //============================================================================================
 
-void Clayer::setType(unsigned int newType)
+void Layer::setType(unsigned int newType)
 {
 	type = newType;
 }
@@ -672,11 +672,11 @@ void Clayer::setType(unsigned int newType)
 
 
 //===========================================================================================
-// NETWORK OBJECT
+// MULTI-LAYER PERCEPTRON NETWORK OBJECT
 //===========================================================================================
 
 //default constructor - no parameters supplied
-Cnetwork::Cnetwork() : layerTotal(2), pass(0), epoch(0), eta(0.5), epsilon(0.001), rmsDelta(0)
+MLPNetwork::MLPNetwork() : layerTotal(2), pass(0), epoch(0), eta(0.5), epsilon(0.001), rmsDelta(0)
 {
 	//'createLayers' (DMAs layer objects) followed by
 	//'defineLayer' needs to be called for each layer in
@@ -687,7 +687,7 @@ Cnetwork::Cnetwork() : layerTotal(2), pass(0), epoch(0), eta(0.5), epsilon(0.001
 //===========================================================================================
 //custom constructor
 
-Cnetwork::Cnetwork(unsigned int newLayerTotal, double newEta, double newEpsilon) :
+MLPNetwork::MLPNetwork(unsigned int newLayerTotal, double newEta, double newEpsilon) :
 layerTotal(newLayerTotal), pass(0), epoch(0), eta(newEta), epsilon(newEpsilon), rmsDelta(0)
 {
 	//each network must have at least an input layer and output layer
@@ -695,7 +695,7 @@ layerTotal(newLayerTotal), pass(0), epoch(0), eta(newEta), epsilon(newEpsilon), 
 		layerTotal = 2;
 
 	//allocate memory for the 'layer' objects
-	layers = new Clayer[layerTotal];
+	layers = new Layer[layerTotal];
 }
 
 //===========================================================================================
@@ -709,7 +709,7 @@ layerTotal(newLayerTotal), pass(0), epoch(0), eta(newEta), epsilon(newEpsilon), 
 //===========================================================================================
 //destructor
 
-Cnetwork::~Cnetwork()
+MLPNetwork::~MLPNetwork()
 {
 	if(layers!=NULL)
 	{
@@ -721,15 +721,15 @@ Cnetwork::~Cnetwork()
 //===========================================================================================
 //member functions
 
-void Cnetwork::createLayers(unsigned int newlayerTotal)
+void MLPNetwork::createLayers(unsigned int newlayerTotal)
 {
 	//allocate memory for the 'layer' objects
-	layers = new Clayer[layerTotal];
+	layers = new Layer[layerTotal];
 }
 
 //============================================================================================
 
-bool Cnetwork::defineLayer(unsigned int layerElem, unsigned int newNeuronTotal)
+bool MLPNetwork::defineLayer(unsigned int layerElem, unsigned int newNeuronTotal)
 {
 	unsigned int dendriteNum=1;
 	unsigned int neuronNum;
@@ -784,7 +784,7 @@ bool Cnetwork::defineLayer(unsigned int layerElem, unsigned int newNeuronTotal)
 
 //=============================================================================================
 
-bool Cnetwork::SetDendrite_x(unsigned int layerElem, unsigned int neuronElem,
+bool MLPNetwork::SetDendrite_x(unsigned int layerElem, unsigned int neuronElem,
 unsigned int dendriteElem, double new_x)
 {
 	//layer has not been created or defined
@@ -809,7 +809,7 @@ unsigned int dendriteElem, double new_x)
 
 //=============================================================================================
 
-bool Cnetwork::SetDendrite_w(unsigned int layerElem, unsigned int neuronElem,
+bool MLPNetwork::SetDendrite_w(unsigned int layerElem, unsigned int neuronElem,
 unsigned int dendriteElem, double new_w)
 {
 	//layer has not been created or defined
@@ -835,7 +835,7 @@ unsigned int dendriteElem, double new_w)
 
 //=============================================================================================
 
-double Cnetwork::GetDendrite_x(unsigned int layerElem, unsigned int neuronElem,
+double MLPNetwork::GetDendrite_x(unsigned int layerElem, unsigned int neuronElem,
 unsigned int dendriteElem)
 {
 	//layer has not been created or defined
@@ -859,7 +859,7 @@ unsigned int dendriteElem)
 
 //=============================================================================================
 
-double Cnetwork::GetDendrite_w(unsigned int layerElem, unsigned int neuronElem,
+double MLPNetwork::GetDendrite_w(unsigned int layerElem, unsigned int neuronElem,
 unsigned int dendriteElem)
 {
 	//layer has not been created or defined
@@ -884,7 +884,7 @@ unsigned int dendriteElem)
 //=============================================================================================
 
 //Delta (or Error) in the neuron's output
-bool Cnetwork::SetDelta(unsigned int layerElem, unsigned int neuronElem,
+bool MLPNetwork::SetDelta(unsigned int layerElem, unsigned int neuronElem,
 double new_d)
 {
 	//layer has not been created or defined
@@ -908,7 +908,7 @@ double new_d)
 }
 
 //=============================================================================================
-bool Cnetwork::SetDesiredOutput(unsigned int neuronElem, double new_dy)
+bool MLPNetwork::SetDesiredOutput(unsigned int neuronElem, double new_dy)
 {
 	//layer has not been created or defined
 	if(layers==NULL)
@@ -925,7 +925,7 @@ bool Cnetwork::SetDesiredOutput(unsigned int neuronElem, double new_dy)
 
 //=============================================================================================
 
-double Cnetwork::GetDesiredOutput(unsigned int layerElem, unsigned int neuronElem)
+double MLPNetwork::GetDesiredOutput(unsigned int layerElem, unsigned int neuronElem)
 {
 
 	//layer has not been created or defined
@@ -950,20 +950,20 @@ double Cnetwork::GetDesiredOutput(unsigned int layerElem, unsigned int neuronEle
 
 //=============================================================================================
 
-unsigned int Cnetwork::GetPass()
+unsigned int MLPNetwork::GetPass()
 {
 	return pass;
 }
 
 //=============================================================================================
 
-double Cnetwork::GetRMS()
+double MLPNetwork::GetRMS()
 {
 	return rmsDelta;
 }
 
 //=============================================================================================
-void Cnetwork::info()
+void MLPNetwork::info()
 {
 
 	printf("\nEPOCH: %d", epoch);
@@ -1006,7 +1006,7 @@ void Cnetwork::info()
 //	   to gradient descent.
 
 
-void Cnetwork::train()
+void MLPNetwork::train()
 {
 	double axonOutput=0; //the axon output of a previous layer neuron to be transferred
 						//to the dendrites of the neurons in the current layer.
@@ -1198,7 +1198,7 @@ void Cnetwork::train()
 	//  CALCULATE THE ROOT-MEAN-SQUARE OF ALL DELTAS IN THE NETWORK
 	//-----------------------------------------------------------------
 	
-		// How many processing units are there in the network
+	// How many processing units are there in the network
 
 	unsigned int unitTotal = 0; //use this to get the mean
 	unsigned int neuronsLayer = 0;
@@ -1271,7 +1271,7 @@ pass++;
 
 //===========================================================================
 
-bool Cnetwork::IsTrained()
+bool MLPNetwork::IsTrained()
 {
 
 	//This function should only be called once the training algorithm
@@ -1294,7 +1294,7 @@ bool Cnetwork::IsTrained()
 
 //===================================================================
 
-void Cnetwork::test()
+void MLPNetwork::test()
 {
 
 	double axonOutput=0; //the axon output of a previous layer neuron to be transferred

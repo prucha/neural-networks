@@ -1,10 +1,11 @@
-// **********************************************************************
-// *																	*
-// *			HEADER FILE: PERCEPTRON NETWORK classes					*
-// *					Version: 24 January 2002						*
-// *						by Milan Prucha								*
-// *																	*
-// **********************************************************************
+/*
+ * NEURAL NETWORK Class Library 
+ * ----------------------------
+ * by Milan Prucha
+ * 
+ * Website: www.milanprucha.com
+ * GitHub:  github.com/prucha
+ */
 
 // This set of classes simulate a typical MULTI-LAYER PERCEPTRON NETWORK.
 // It creates networks that are FULLY CONNECTED, which means the output
@@ -28,7 +29,7 @@ typedef int BOOL;
 enum{FALSE, TRUE};
 
 
-class Cneuron
+class Neuron
 {
 
 private:
@@ -108,9 +109,9 @@ public:
 	void info();
 
 	//constructors
-	Cneuron();
-	Cneuron(unsigned int newDendriteTotal); //dendrite total will be set by the layer object
-	~Cneuron(); //destructor
+	Neuron();
+	Neuron(unsigned int newDendriteTotal); //dendrite total will be set by the layer object
+	~Neuron(); //destructor
 
 }; 
 
@@ -118,12 +119,12 @@ public:
 //============================================================================================
 
 
-class Clayer
+class Layer
 {
 
 private:
 
-	Cneuron* neurons;	
+	Neuron* neurons;	
 	unsigned int neuronTotal; //number of neuron elements contained within the layer
 	unsigned int dendriteTotal;	//The number of dendrites -1 = the number of neurons
 	//in the previous layer. All neurons within a layer have the same number of
@@ -180,23 +181,23 @@ public:
 	void setType(unsigned int newType);
 
 	//constructors
-	Clayer();
-	Clayer(unsigned int newNeuronTotal, unsigned int newDendriteTotal=3, unsigned int newType=1);
-	~Clayer();
+	Layer();
+	Layer(unsigned int newNeuronTotal, unsigned int newDendriteTotal=3, unsigned int newType=1);
+	~Layer();
 };
 
 
 //============================================================================================
 
 
-class Cnetwork
+class MLPNetwork
 {
 private:
 	
 	//0 (first element) => input layer		
 	//1 (inbetween elements) => hidden layers
 	//2 (last element) => output layer
-	Clayer* layers;	
+	Layer* layers;	
 
 	//the number of layers in the entire network
 	unsigned int layerTotal; 
@@ -268,9 +269,9 @@ public:
 	void test();
 
 	//contructors
-	Cnetwork();
-	Cnetwork(unsigned int newlayerTotal, double newEta=0.5, double newEpsilon=0.001);
-	~Cnetwork();
+	MLPNetwork();
+	MLPNetwork(unsigned int newlayerTotal, double newEta=0.5, double newEpsilon=0.001);
+	~MLPNetwork();
 };
 
 //==============================================================================================
