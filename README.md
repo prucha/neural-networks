@@ -9,7 +9,7 @@ Please refer to the sites below for an introduction into Artificial Neural Netwo
 
 This project contains C++ classes for creating a Multi-Layer Perceptron Network. I have implemented these classes in an example Win32 Console application (compiled using Visual Studio 2012). You are free to use this code under a [MIT License](LICENSE).
 
-Below is a diagram which illustrates an example Perceptron Network that can be configured using my classes. 
+Below is a diagram which illustrates an example Perceptron Network that can be configured using the MLP Network classes. 
 ![Example Network](example-network.png)
 
 The main source files are as follows:
