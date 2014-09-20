@@ -3,8 +3,8 @@ Neural Networks
 
 Please refer to the sites below for an introduction into Artificial Neural Networks (ANNs) and their uses:
 
-[www.ai-junkie.com](http://www.ai-junkie.com/)
-[www.doc.ic.ac.uk (Imperial College report)](http://www.doc.ic.ac.uk/%7End/surprise_96/journal/vol4/cs11/report.html)
+* [www.ai-junkie.com](http://www.ai-junkie.com/)
+* [www.doc.ic.ac.uk (Imperial College report)](http://www.doc.ic.ac.uk/%7End/surprise_96/journal/vol4/cs11/report.html)
 
 
 This project contains C++ classes for creating a Multi-Layer Perceptron Network. I have implemented these classes in an example Win32 Console application (compiled using Visual Studio 2012). You are free to use this code under a [MIT License](LICENSE).
